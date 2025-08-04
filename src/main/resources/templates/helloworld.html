@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--view using url parameter-->
+<p>Student Name: <span th:text="${param.studentName}"></span></p>
+<!--view using model with @HttpServletRequest / @RequestParam-->
+<p>Student Name: <span th:text="${message}"></span></p>
+</body>
+</html>
