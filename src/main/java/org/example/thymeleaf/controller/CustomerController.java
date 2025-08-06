@@ -1,0 +1,45 @@
+package org.example.thymeleaf.controller;
+
+import jakarta.validation.Valid;
+import org.example.thymeleaf.model.Customer;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class CustomerController {
+
+    //add an initbinder to convert trimmed input strings
+    //remove leading and trailing whitespace to resolve issue for validation
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class, stringTrimmer);
+    }
+
+    @GetMapping("/")
+    public String showForm(Model model) {
+        model.addAttribute("customer", new Customer());
+        return "customer-form";
+    }
+
+    @PostMapping("/processCustomerForm")
+    public String processForm(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) {
+
+        System.out.println("[" + customer.getLastName() + "]");
+        System.out.println(result);
+
+        if (result.hasErrors()) {
+            return "customer-form";
+
+        }
+        return "customer-confirmation";
+    }
+
+}

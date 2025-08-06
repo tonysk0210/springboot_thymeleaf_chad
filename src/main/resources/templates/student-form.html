@@ -5,6 +5,26 @@
     <title>Title</title>
 </head>
 <body>
+<h3>Student Registration Form</h3>
+<form th:action="@{/processStudentForm}" th:object="${student}" method="POST">
+    First Name: <input type="text" th:field="*{firstName}"><br>
+    Last Name: <input type="text" th:field="*{lastName}"><br>
 
+    <br>
+    <br>
+    <!--drop down menu-->
+    <select th:field="*{country}">
+        <option th:each="country : ${countries}" th:value="${country}" th:text="${country}"></option>
+    </select>
+
+    <br>
+    <br>
+    <!--radio button-->
+    <input type=radio th:field="*{favLanguage}" th:value="Go">Go
+    <input type=radio th:field="*{favLanguage}" th:value="Java">Java
+    <input type=radio th:field="*{favLanguage}" th:value="Python">Python
+
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>
